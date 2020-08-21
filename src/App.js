@@ -10,7 +10,13 @@ function App() {
 
   const AddNewTask = (newTask, newDescription, today, deadline) => {
     if (!taskData.find(t => t.title === newTask)) {
-      setTaskData([...taskData, { title: newTask, description: newDescription, startDate: today, deadline: deadline,done: false }])
+      setTaskData([...taskData, { 
+        title: newTask, 
+        description: newDescription, 
+        startDate: today, 
+        deadline: deadline, 
+        done: false 
+      }])
     } else {
       alert('You cannot create two tasks with the same name');
     }

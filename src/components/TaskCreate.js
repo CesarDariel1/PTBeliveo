@@ -8,7 +8,7 @@ export const TaskCreate = props => {
     const [newTask, setNewTask] = useState('');
     const [newDescription, setNewDescription] = useState('');
     const [StartDate, newStartDate] = useState(today);
-    const [deadline, setDeadline] = useState('');
+    const [deadline, setDeadline] = useState(today);
 
     const TaskValue = e => setNewTask(e.target.value);
     const TaskDescription = e => setNewDescription(e.target.value);
@@ -47,10 +47,10 @@ export const TaskCreate = props => {
             <label className="mt-2">
                 Deadline
             </label>
-            <input 
+            <input
                 type="date"
                 className="form-control"
-                style={{width: 250}}
+                style={{ width: 250 }}
                 value={deadline}
                 onChange={TaskDeadline}
             />

@@ -11,7 +11,7 @@ export const Task = props => (
             <input
                 type="checkbox"
                 checked={props.task.done}
-                onChange={() => props.toggleTask(props.task)} 
+                onChange={() => props.toggleTask(props.task)}
             />
         </td>
     </tr>
