@@ -8,15 +8,11 @@ function App() {
 
   const [taskData, setTaskData] = useState([])
 
-  const SortAsc = () => (
-    taskData.sort((a, b) => a.title < b.title ? 1 : -1)
-  )
-
-  const AddNewTask = newTask => {
+  const AddNewTask = (newTask, newDescription, today, deadline) => {
     if (!taskData.find(t => t.title === newTask)) {
-      setTaskData([...taskData, { title: newTask, description: '...', done: false }])
+      setTaskData([...taskData, { title: newTask, description: newDescription, startDate: today, deadline: deadline,done: false }])
     } else {
-      alert('No se puede crear dos tareas con el mismo nombre');
+      alert('You cannot create two tasks with the same name');
     }
   }
 
@@ -27,7 +23,7 @@ function App() {
   const PrintOnTable = (doneValue) => (
     taskData
       .filter(task => task.done === doneValue)
-      .sort((a, b) => a.title < b.title ? -1 : 1)
+      .sort((a, b) => a.title.localeCompare(b.title))
       .map(task => (
         <Task
           key={task.title}
@@ -50,8 +46,6 @@ function App() {
     localStorage.setItem('tasks', JSON.stringify(taskData));
   }, [taskData]);
 
-
-
   return (
     <div className="container">
       <div className="row">
@@ -64,14 +58,21 @@ function App() {
             <thead>
               <tr>
                 <th className="text-center">Title</th>
+                <th className="text-center">Description</th>
+                <th className="text-center">Start Date</th>
+                <th className="text-center">Deadline</th>
                 <th className="text-center">Done</th>
               </tr>
             </thead>
             <tbody>
-              <td colSpan="2" className="bg-info text-center text-white">To Do</td>
+              <tr>
+                <td colSpan="5" className="bg-info text-center text-white">To Do</td>
+              </tr>
               <CountRows taskData={taskData} />
               {PrintOnTable(false)}
-              <td colSpan="2" className="bg-success text-center text-white">DONE</td>
+              <tr>
+                <td colSpan="5" className="bg-success text-center text-white">Done</td>
+              </tr>
               <CountRowsDone taskData={taskData} />
               {PrintOnTable(true)}
             </tbody>
